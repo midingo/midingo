@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 18d4e48c53b364b4281db2c9fb5210b1
+guid: 190954023a41ef240b5e13e6f84829a4
 AssetOrigin:
   serializedVersion: 1
   productId: 222171
   packageName: DryWetMIDI
   packageVersion: 8.0.2
-  assetPath: Assets/Melanchall/DryWetMIDI/Melanchall.DryWetMidi.dll
+  assetPath: Assets/Melanchall/DryWetMIDI/Melanchall_DryWetMidi_Native32.dll
   uploadId: 776551
 PluginImporter:
   externalObjects: {}
@@ -30,32 +30,28 @@ PluginImporter:
     Editor:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: x86_64
         DefaultValueInitialized: true
-        OS: AnyOS
+        OS: Windows
     Linux64:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: x86_64
     OSXUniversal:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: None
     WebGL:
       enabled: 1
       settings: {}
     Win:
       enabled: 1
       settings:
-        CPU: AnyCPU
+        CPU: x86
     Win64:
       enabled: 1
       settings:
-        CPU: AnyCPU
-    WindowsStoreApps:
-      enabled: 0
-      settings:
-        CPU: AnyCPU
+        CPU: None
   userData: 
   assetBundleName: 
   assetBundleVariant: 
