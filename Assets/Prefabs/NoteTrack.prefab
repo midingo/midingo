@@ -189,7 +189,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0.35805556, y: -0, z: -0, w: 0.9337003}
   m_LocalPosition: {x: -0.28, y: 7.57, z: -0.00000007450693}
-  m_LocalScale: {x: 2.2324, y: 1, z: 4.9444}
+  m_LocalScale: {x: 17.369188, y: 1, z: 4.9444}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 526756550550704151}
@@ -301,7 +301,7 @@ Transform:
   m_GameObject: {fileID: 2932597641564088656}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 26.08, z: 15.93}
+  m_LocalPosition: {x: -85.894, y: 26.08, z: 15.93}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -396,11 +396,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff52b6d156f384df4b9b5e97b994cedb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
-  midiFilePath: Assets/DemoSongs/constant.mid
+  midiFilePath: Assets/DemoSongs/TestSong/test.mid
   notePrefab: {fileID: 1392364485878141894, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
   rootSpawnPoint: {fileID: 8764618310272532134}
   backingTrack: {fileID: 7865365888760346524}
-  approachTime: 3
+  approachTime: 0
 --- !u!1 &6439651673101088590
 GameObject:
   m_ObjectHideFlags: 0
