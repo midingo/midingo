@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
@@ -47,14 +46,16 @@ public class NoteSpawner : MonoBehaviour {
 
         // Read file for notes
         foreach (var note in mf.GetNotes()) {
-            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds;
-            float spawnTime = hitTime - approachTime;
+            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds; // When this note should hit the keys
+            float spawnTime = hitTime - approachTime; // Offset note spawning to give time to scroll down
             spawnTime = Mathf.Max(spawnTime, 0f); // No negative spawn times
+            float duration = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Length, tempoMap).TotalSeconds;
             
             _notes.Add(new ScheduledNote {
                 HitTime = hitTime,
                 SpawnTime = spawnTime,
-                NoteID = note.NoteNumber
+                NoteID = note.NoteNumber,
+                NoteDuration = duration
             });
         }
         
@@ -77,9 +78,18 @@ public class NoteSpawner : MonoBehaviour {
             int targetNote = _notes[_nextNoteIndx].NoteID;
 
             if (_keyLookup.TryGetValue(targetNote, out Transform keyTransform)) {
-                Vector3 noteOffset = new Vector3(0f, 15f, 0f);
+                Vector3 noteOffset = new Vector3(0f, 0f, 100f);
                 Vector3 spawnPos = keyTransform.position + noteOffset;
-                Instantiate(notePrefab, spawnPos, Quaternion.identity);
+
+                GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
+                FallingNote fn = noteObject.GetComponent<FallingNote>();
+
+                if (fn) {
+                    double spawnDSP = _notes[_nextNoteIndx].SpawnTime + _gameStartTime;
+                    double hitDSP = _notes[_nextNoteIndx].HitTime + _gameStartTime;
+                    fn.Init(spawnPos, keyTransform.position, spawnDSP, hitDSP);
+                }
+
             } else {
                 Debug.LogWarning($"Can't find note: {_notes[_nextNoteIndx].NoteID}");
             }
