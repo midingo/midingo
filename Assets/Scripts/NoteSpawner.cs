@@ -4,6 +4,9 @@ using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
 
+/**
+ * This class spawns notes in a scene, determined by MIDI note numbers
+ */
 public class NoteSpawner : MonoBehaviour {
     public string midiFilePath;
     public GameObject notePrefab;
@@ -16,14 +19,15 @@ public class NoteSpawner : MonoBehaviour {
     private double _gameStartTime; // Track when the game actually started
     
     /**
-     * This class stores relevant information about the note in question.
+     * This class stores relevant information for spawning notes
      */
-    private class ScheduledNote {
+    public class ScheduledNote {
         public float SpawnTime; // time this note should spawn (relative to song start)
         public float HitTime; // when this note is to be hit (relative to song start)
-        public float NoteID; // MIDI note number
+        public int NoteID; // MIDI note number
         public float NoteDuration;
     }
+
     
     void Start() {
         // SETTING UP MIDI FILE //
@@ -45,7 +49,7 @@ public class NoteSpawner : MonoBehaviour {
         }
         
         // Sort notes by spawn time
-        // _notes.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
+        _notes.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
         
         // Schedule playback with delay
         _gameStartTime = AudioSettings.dspTime + .5;
@@ -60,7 +64,9 @@ public class NoteSpawner : MonoBehaviour {
         if (elapsedTime < 0) return;
 
         while (_nextNoteIndx < _notes.Count && _notes[_nextNoteIndx].SpawnTime <= elapsedTime) {
-            Instantiate(notePrefab, rootSpawnPoint.position, Quaternion.identity);
+            Vector3 noteOffset = new Vector3(0f + _notes[_nextNoteIndx].NoteID, 0f, 0f);
+            Vector3 spawnPos = rootSpawnPoint.position + noteOffset;
+            Instantiate(notePrefab, spawnPos, Quaternion.identity);
             _nextNoteIndx++;
         }
     }
