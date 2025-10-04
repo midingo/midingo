@@ -10,10 +10,10 @@ public class NoteSpawner : MonoBehaviour {
     public string midiFilePath;
     public GameObject notePrefab;
     public AudioSource backingTrack;
-    public float approachTime = 3;
+    public float approachTime = 15;
 
     private List<ScheduledNote> _notes = new List<ScheduledNote>();
-    private int _nextNoteIndx;
+    private int _nextNoteIndex;
     private double _gameStartTime; // Track when the game actually started
     
     // MIDI note -> note coords
@@ -24,13 +24,13 @@ public class NoteSpawner : MonoBehaviour {
      */
     public class ScheduledNote {
         public float SpawnTime; // time this note should spawn (relative to song start)
-        public float HitTime; // when this note is to be hit (relative to song start)
+        public float HitTime; // When this note should hit the keys (relative to song start)
         public int NoteID; // MIDI note number
         public float NoteDuration;
     }
     
     void Start() {
-        // Build dictionary //
+        // Build dictionary from in game keys //
         foreach (Transform octave in transform) {
             foreach (Transform key in octave) {
                 if (int.TryParse(key.name, out int midiNote)) {
@@ -41,12 +41,12 @@ public class NoteSpawner : MonoBehaviour {
         
         // SETTING UP MIDI FILE //
         // Load midi file
-        var mf = MidiFile.Read(midiFilePath);
-        var tempoMap = mf.GetTempoMap();
+        var chart = MidiFile.Read(midiFilePath);
+        var tempoMap = chart.GetTempoMap();
 
         // Read file for notes
-        foreach (var note in mf.GetNotes()) {
-            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds; // When this note should hit the keys
+        foreach (var note in chart.GetNotes()) {
+            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds; 
             float spawnTime = hitTime - approachTime; // Offset note spawning to give time to scroll down
             spawnTime = Mathf.Max(spawnTime, 0f); // No negative spawn times
             float duration = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Length, tempoMap).TotalSeconds;
@@ -63,7 +63,7 @@ public class NoteSpawner : MonoBehaviour {
         _notes.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
         
         // Schedule playback with delay
-        _gameStartTime = AudioSettings.dspTime + .5;
+        _gameStartTime = AudioSettings.dspTime + 1;
         backingTrack.PlayScheduled(_gameStartTime);
     }
 
@@ -72,29 +72,31 @@ public class NoteSpawner : MonoBehaviour {
         double elapsedTime = AudioSettings.dspTime - _gameStartTime;
         
         // Only start spawning after the game has actually started
-        if (elapsedTime < 0) return;
+        // if (elapsedTime < 0) return;
 
-        while (_nextNoteIndx < _notes.Count && _notes[_nextNoteIndx].SpawnTime <= elapsedTime) {
-            int targetNote = _notes[_nextNoteIndx].NoteID;
+        while (_nextNoteIndex < _notes.Count && _notes[_nextNoteIndex].SpawnTime <= elapsedTime) {
+            int targetNote = _notes[_nextNoteIndex].NoteID;
 
             if (_keyLookup.TryGetValue(targetNote, out Transform keyTransform)) {
-                Vector3 noteOffset = new Vector3(0f, 0f, 100f);
-                Vector3 spawnPos = keyTransform.position + noteOffset;
+                Vector3 keyOffset = new Vector3(0f, 0f, 3.43f);
+                Vector3 targetPos = keyTransform.position + keyOffset;
+                Vector3 noteOffset = new Vector3(0f, 0f, 125f);
+                Vector3 spawnPos = targetPos + noteOffset;
 
                 GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
                 FallingNote fn = noteObject.GetComponent<FallingNote>();
 
                 if (fn) {
-                    double spawnDSP = _notes[_nextNoteIndx].SpawnTime + _gameStartTime;
-                    double hitDSP = _notes[_nextNoteIndx].HitTime + _gameStartTime;
-                    fn.Init(spawnPos, keyTransform.position, spawnDSP, hitDSP);
+                    double spawnDSP = _notes[_nextNoteIndex].SpawnTime + _gameStartTime;
+                    double hitDSP = _notes[_nextNoteIndex].HitTime + _gameStartTime;
+                    fn.Init(spawnPos, targetPos, spawnDSP, hitDSP, _notes[_nextNoteIndex].NoteDuration);
                 }
 
             } else {
-                Debug.LogWarning($"Can't find note: {_notes[_nextNoteIndx].NoteID}");
+                Debug.LogWarning($"Can't find note: {_notes[_nextNoteIndex].NoteID}");
             }
             
-            _nextNoteIndx++;
+            _nextNoteIndex++;
         }
     }
 }

@@ -7,13 +7,15 @@ public class FallingNote : MonoBehaviour {
 
     private double _spawnTime;
     private double _hitTime;
+    private double _duration;
     private bool _initialized;
 
-    public void Init(Vector3 spawnPosition, Vector3 targetPosition, double spawnTime, double hitTime) {
+    public void Init(Vector3 spawnPosition, Vector3 targetPosition, double spawnTime, double hitTime, double duration) {
         _spawnPos = spawnPosition;
         _targetPos = targetPosition;
         _spawnTime = spawnTime;
         _hitTime = hitTime;
+        _duration = duration;
         _initialized = true;
     }
 

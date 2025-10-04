@@ -376,13 +376,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 961739749}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.38878036, y: 0.0033162471, z: -0.0013956185, w: -0.9213234}
-  m_LocalPosition: {x: 2.1099465, y: 40.746994, z: 9.137283}
+  m_LocalRotation: {x: 0.5806763, y: -0, z: -0, w: 0.8141346}
+  m_LocalPosition: {x: 2.86, y: 40.07, z: 4.03}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 26.6, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 70.996, y: 0, z: 0}
 --- !u!1 &1701774942
 GameObject:
   m_ObjectHideFlags: 0
@@ -450,7 +450,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 526756550550704151, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 26.95
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 526756550550704151, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -484,9 +484,17 @@ PrefabInstance:
       propertyPath: m_Name
       value: NoteTrack
       objectReference: {fileID: 0}
+    - target: {fileID: 6865956062059424697, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
+      propertyPath: approachTime
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 7122582945964203172, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
       propertyPath: m_LocalPosition.y
       value: -0.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 7865365888760346524, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
