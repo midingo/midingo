@@ -70,9 +70,9 @@ public class NoteSpawner : MonoBehaviour {
             int targetNote = _notes[_nextNoteIndex].NoteID;
 
             if (Track.KeyPositions.TryGetValue(targetNote, out Transform keyTransform)) {
-                Vector3 keyOffset = new Vector3(0f, 0f, 3.43f);
+                Vector3 keyOffset = new Vector3(0f, 3.43f, 0f);
                 Vector3 targetPos = keyTransform.position + keyOffset;
-                Vector3 noteOffset = new Vector3(0f, 0f, 125f);
+                Vector3 noteOffset = new Vector3(0f, 125f, 0f);
                 Vector3 spawnPos = targetPos + noteOffset;
 
                 GameObject noteObject = Instantiate(notePrefab, spawnPos, Quaternion.identity);
