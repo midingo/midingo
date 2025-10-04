@@ -16,29 +16,21 @@ public class NoteSpawner : MonoBehaviour {
     private int _nextNoteIndex;
     private double _gameStartTime; // Track when the game actually started
     
-    // MIDI note -> note coords
-    private Dictionary<int, Transform> _keyLookup = new Dictionary<int, Transform>();
-    
-    /**
-     * This class stores relevant information for spawning notes
-     */
-    public class ScheduledNote {
+    /// <summary>
+    /// Stores information about a falling note
+    /// </summary>
+    struct ScheduledNote {
         public float SpawnTime; // time this note should spawn (relative to song start)
         public float HitTime; // When this note should hit the keys (relative to song start)
         public int NoteID; // MIDI note number
         public float NoteDuration;
     }
+
+    public NoteSpawner() {
+        
+    }
     
     void Start() {
-        // Build dictionary from in game keys //
-        foreach (Transform octave in transform) {
-            foreach (Transform key in octave) {
-                if (int.TryParse(key.name, out int midiNote)) {
-                    _keyLookup[midiNote] = key.transform;
-                }
-            }
-        }
-        
         // SETTING UP MIDI FILE //
         // Load midi file
         var chart = MidiFile.Read(midiFilePath);
@@ -72,12 +64,12 @@ public class NoteSpawner : MonoBehaviour {
         double elapsedTime = AudioSettings.dspTime - _gameStartTime;
         
         // Only start spawning after the game has actually started
-        // if (elapsedTime < 0) return;
+        if (elapsedTime < 0) return;
 
         while (_nextNoteIndex < _notes.Count && _notes[_nextNoteIndex].SpawnTime <= elapsedTime) {
             int targetNote = _notes[_nextNoteIndex].NoteID;
 
-            if (_keyLookup.TryGetValue(targetNote, out Transform keyTransform)) {
+            if (Track.KeyPositions.TryGetValue(targetNote, out Transform keyTransform)) {
                 Vector3 keyOffset = new Vector3(0f, 0f, 3.43f);
                 Vector3 targetPos = keyTransform.position + keyOffset;
                 Vector3 noteOffset = new Vector3(0f, 0f, 125f);
@@ -87,9 +79,9 @@ public class NoteSpawner : MonoBehaviour {
                 FallingNote fn = noteObject.GetComponent<FallingNote>();
 
                 if (fn) {
-                    double spawnDSP = _notes[_nextNoteIndex].SpawnTime + _gameStartTime;
-                    double hitDSP = _notes[_nextNoteIndex].HitTime + _gameStartTime;
-                    fn.Init(spawnPos, targetPos, spawnDSP, hitDSP, _notes[_nextNoteIndex].NoteDuration);
+                    double spawnDspTime = _notes[_nextNoteIndex].SpawnTime + _gameStartTime;
+                    double hitDspTime = _notes[_nextNoteIndex].HitTime + _gameStartTime;
+                    fn.Init(spawnPos, targetPos, spawnDspTime, hitDspTime, _notes[_nextNoteIndex].NoteDuration);
                 }
 
             } else {
