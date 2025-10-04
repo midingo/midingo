@@ -26,7 +26,7 @@ Transform:
   m_GameObject: {fileID: 834173380318128282}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.01, z: 30.94}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -392,7 +392,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 526756550550704151}
-  - component: {fileID: 3006719716358188682}
+  - component: {fileID: 3484025151734153664}
   m_Layer: 0
   m_Name: NoteTrack
   m_TagString: Untagged
@@ -420,7 +420,7 @@ Transform:
   - {fileID: 3156030664115699157}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
---- !u!114 &3006719716358188682
+--- !u!114 &3484025151734153664
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -431,10 +431,11 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: efda1ffe7fc33431ebc3f2d57932e5cd, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::SetupTrack
-  midiFile: 
-  songAudio: {fileID: 0}
+  m_EditorClassIdentifier: Assembly-CSharp::Track
   approachTime: 15
+  notePrefab: {fileID: 7195221162212469571, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
+  midiFilePath: Assets/DemoSongs/TestSong/test.mid
+  songAudio: {fileID: 7865365888760346524}
 --- !u!1001 &6929372526904959328
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -490,32 +491,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 6954840858357051431, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 6865956062059424697}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
---- !u!1 &49149750330249543 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6954840858357051431, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
-  m_PrefabInstance: {fileID: 6929372526904959328}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &6865956062059424697
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 49149750330249543}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff52b6d156f384df4b9b5e97b994cedb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::NoteSpawner
-  midiFilePath: Assets/DemoSongs/TestSong/test.mid
-  notePrefab: {fileID: 7195221162212469571, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
-  backingTrack: {fileID: 7865365888760346524}
-  approachTime: 15
 --- !u!4 &5475285813618885994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3158726386248066058, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}

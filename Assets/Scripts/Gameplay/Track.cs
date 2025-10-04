@@ -1,20 +1,23 @@
 using System;
 using System.Collections.Generic;
+using Melanchall.DryWetMidi.Core;
+using Melanchall.DryWetMidi.Interaction;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 /// <summary>
-/// This script sets up the note highway / track.
+/// Handles setup for the note highway.
 /// </summary>
 public class Track : MonoBehaviour {
-    public string midiFile;
-    public AudioSource songAudio;
-
+    // Gameplay Data //
     /// <summary>
     /// The time a note takes to hit the keys in seconds.
     /// This effects how fast notes go down the highway.
     /// </summary>
     public float approachTime = 15;
-
+    public GameObject notePrefab;
+    
     /// <summary>
     /// Maps MIDI note number to a key's coordinates.
     /// </summary>
@@ -23,9 +26,19 @@ public class Track : MonoBehaviour {
     ///  Doing so prevents unnecessary GetComponent() calls, improving performance. 
     /// </remarks>
     public static Dictionary<int, Transform> KeyPositions = new Dictionary<int, Transform>();
-
+    public static double StartTime;
+    public static double ElapsedTime;
+    
+    // MIDI data //
+    public string midiFilePath;
+    public MidiFile Chart;
+    public TempoMap Tempo;
+    
+    // Audio data //
+    public AudioSource songAudio;
+    
     private void Start() {
-        // Build dictionary from in game keys //
+        // Build dictionary from in game keys
         Transform keyboard = transform.Find("Keyboard");
         if (keyboard == null) {
             Debug.LogError("No keyboard object found under NoteTrack.");
@@ -38,5 +51,23 @@ public class Track : MonoBehaviour {
                 }
             }
         }
+
+        
+        // Reading MIDI file
+        Chart = MidiFile.Read(midiFilePath);
+        Tempo = Chart.GetTempoMap();
+        
+        // Start spawning notes
+        NoteSpawner ns = keyboard.gameObject.AddComponent<NoteSpawner>();
+        ns.track = this;
+        
+        
+        // Start audio playback
+        StartTime = AudioSettings.dspTime + 1;
+        songAudio.PlayScheduled(StartTime);
+    }
+
+    private void Update() {
+        ElapsedTime = AudioSettings.dspTime - StartTime;
     }
 }
