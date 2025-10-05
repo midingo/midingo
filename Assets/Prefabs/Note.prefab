@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3402150235219514749}
   - component: {fileID: 712831088875518341}
   - component: {fileID: 2595288919567406789}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 3074541314846016880}
   - component: {fileID: 696834160233666371}
   - component: {fileID: 3506629446224312952}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Point Light
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -250,7 +250,7 @@ GameObject:
   - component: {fileID: 1377167822692007042}
   - component: {fileID: 7777032861142763587}
   - component: {fileID: 1464799452375381304}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Note
   m_TagString: Untagged
   m_Icon: {fileID: 0}
