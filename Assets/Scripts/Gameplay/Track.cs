@@ -1,10 +1,7 @@
-using System;
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.Core;
 using Melanchall.DryWetMidi.Interaction;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /// <summary>
 /// Handles setup for the note highway.

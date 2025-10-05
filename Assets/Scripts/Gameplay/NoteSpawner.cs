@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Melanchall.DryWetMidi.Interaction;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 /**
  * This class spawns notes in a scene, determined by MIDI note numbers
