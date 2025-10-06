@@ -54,7 +54,7 @@ AudioSource:
   Priority: 128
   DopplerLevel: 1
   MinDistance: 1
-  MaxDistance: 500
+  MaxDistance: 657.5789
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -289,7 +289,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Track
   approachTime: 15
-  notePrefab: {fileID: 7195221162212469571, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
+  notePrefabNatural: {fileID: 7195221162212469571, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
+  notePrefabAccidental: {fileID: 7195221162212469571, guid: 1d36b965dff5a4ffba3871767a0a7fd9, type: 3}
   midiFilePath: Assets/DemoSongs/TestSong/test.mid
   songAudio: {fileID: 7865365888760346524}
 --- !u!1001 &6929372526904959328

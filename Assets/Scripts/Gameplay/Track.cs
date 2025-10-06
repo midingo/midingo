@@ -13,7 +13,8 @@ public class Track : MonoBehaviour {
     /// This effects how fast notes go down the highway.
     /// </summary>
     public float approachTime = 15;
-    public GameObject notePrefab;
+    public GameObject notePrefabNatural;
+    public GameObject notePrefabAccidental;
     
     /// <summary>
     /// Maps MIDI note number to a key's coordinates.

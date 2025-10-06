@@ -10,6 +10,7 @@ public class NoteSpawner : MonoBehaviour {
 
     public List<ScheduledNote> NoteQueue = new List<ScheduledNote>();
     public int nextNoteIndex;
+    private Vector3 noteOffset = new Vector3(0f, 125f, 0f);
     
     /// <summary>
     /// Stores information about a falling note
@@ -20,18 +21,18 @@ public class NoteSpawner : MonoBehaviour {
         public int NoteID; // MIDI note number
         public float NoteDuration;
     }
-    
+
     void Start() {
         var chart = track.Chart;
         var tempoMap = track.Tempo;
-
+        
         // Read file for notes
         foreach (var note in chart.GetNotes()) {
-            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds; 
+            var hitTime = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Time, tempoMap).TotalSeconds;
             float spawnTime = hitTime - track.approachTime; // Offset note spawning to give time to scroll down
             spawnTime = Mathf.Max(spawnTime, 0f); // No negative spawn times
             float duration = (float)TimeConverter.ConvertTo<MetricTimeSpan>(note.Length, tempoMap).TotalSeconds;
-            
+
             NoteQueue.Add(new ScheduledNote {
                 HitTime = hitTime,
                 SpawnTime = spawnTime,
@@ -39,7 +40,7 @@ public class NoteSpawner : MonoBehaviour {
                 NoteDuration = duration
             });
         }
-        
+
         // Sort notes by spawn time
         NoteQueue.Sort((a, b) => a.SpawnTime.CompareTo(b.SpawnTime));
     }
@@ -49,12 +50,28 @@ public class NoteSpawner : MonoBehaviour {
             int targetNote = NoteQueue[nextNoteIndex].NoteID;
 
             if (Track.KeyPositions.TryGetValue(targetNote, out Transform keyTransform)) {
-                Vector3 keyOffset = new Vector3(0f, 3.43f, 0f);
-                Vector3 targetPos = keyTransform.position + keyOffset;
-                Vector3 noteOffset = new Vector3(0f, 125f, 0f);
-                Vector3 spawnPos = targetPos + noteOffset;
+                GameObject noteObject;
+                Vector3 targetPos;
+                Vector3 spawnPos;
+                
+                if (KeyboardNoteAssigner.IsAccidental(targetNote)) {
+                    targetPos = new Vector3(
+                            keyTransform.position.x,
+                            KeyboardNoteAssigner.AccidentalTop.y + 3.5f,
+                            keyTransform.position.z
+                        );
+                    spawnPos = targetPos + noteOffset;
+                    noteObject = Instantiate(track.notePrefabAccidental, spawnPos, Quaternion.Euler(0, 90, 0));
+                } else {
+                    targetPos = new Vector3(
+                        keyTransform.position.x,
+                        KeyboardNoteAssigner.NaturalTop.y + 3.5f,
+                        keyTransform.position.z
+                    );
+                    spawnPos = targetPos + noteOffset;
+                    noteObject = Instantiate(track.notePrefabNatural, spawnPos, Quaternion.Euler(0, 90, 0));
+                }
 
-                GameObject noteObject = Instantiate(track.notePrefab, spawnPos, Quaternion.identity);
                 FallingNote fn = noteObject.GetComponent<FallingNote>();
 
                 if (fn) {
@@ -65,7 +82,7 @@ public class NoteSpawner : MonoBehaviour {
             } else {
                 Debug.LogWarning($"Can't find note: {NoteQueue[nextNoteIndex].NoteID}");
             }
-            
+
             nextNoteIndex++;
         }
     }
