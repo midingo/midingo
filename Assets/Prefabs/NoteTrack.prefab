@@ -289,6 +289,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Track
   approachTime: 15
+  noteColors:
+  - {fileID: 2100000, guid: b9c307bd709dd493c9694ebd495392d1, type: 2}
+  - {fileID: 2100000, guid: ecc20ed75ef354c9698121ebc63b231a, type: 2}
+  - {fileID: 2100000, guid: fe335754472e7460886ef3970921640b, type: 2}
+  - {fileID: 2100000, guid: 79ebc989f81d5402098e57263654d9c6, type: 2}
+  - {fileID: 2100000, guid: becdcd091e2944989bb65c46cf865a47, type: 2}
+  - {fileID: 2100000, guid: 03d44d1c60e8347f7807ca74338bcc81, type: 2}
+  - {fileID: 2100000, guid: 0d8cf01cb862b4c77a1fab6f6808efa1, type: 2}
   notePrefabNatural: {fileID: 7195221162212469571, guid: efef0239d21c443499ddd89ec1eecdaf, type: 3}
   notePrefabAccidental: {fileID: 7195221162212469571, guid: 1d36b965dff5a4ffba3871767a0a7fd9, type: 3}
   midiFilePath: Assets/DemoSongs/TestSong/test.mid

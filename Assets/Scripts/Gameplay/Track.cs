@@ -13,6 +13,8 @@ public class Track : MonoBehaviour {
     /// This effects how fast notes go down the highway.
     /// </summary>
     public float approachTime = 15;
+
+    public Material[] noteColors;
     public GameObject notePrefabNatural;
     public GameObject notePrefabAccidental;
     

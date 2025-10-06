@@ -622,10 +622,6 @@ PrefabInstance:
       propertyPath: midiFilePath
       value: 
       objectReference: {fileID: 0}
-    - target: {fileID: 3484025151734153664, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
-      propertyPath: approachTime
-      value: 13
-      objectReference: {fileID: 0}
     - target: {fileID: 6439651673101088590, guid: b22367b3c32f74f3e94adc3da102ced7, type: 3}
       propertyPath: m_Name
       value: NoteTrack
