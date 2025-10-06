@@ -22,32 +22,6 @@ public class NoteSpawner : MonoBehaviour {
         public float NoteDuration;
     }
 
-    public static Material GetNoteColor(Material[] colors, int midiNoteNumber) {
-        if (KeyboardNoteAssigner.IsAccidental(midiNoteNumber)) { // TODO: Handle accidental colors better
-            return colors[0];
-        }
-
-        int semitone = midiNoteNumber % 12;
-
-        // Match up index
-        int matIndex;
-        switch (semitone) {
-            case 0: matIndex = 0; break; // C
-            case 2: matIndex = 1; break; // D
-            case 4: matIndex = 2; break; // E
-            case 5: matIndex = 3; break; // F
-            case 7: matIndex = 4; break; // G
-            case 9: matIndex = 5; break; // A
-            case 11: matIndex = 6; break; // B
-            default:
-                Debug.LogWarning("Invalid note semitone: " + semitone);
-                matIndex = 0;
-                break;
-        }
-        
-        return colors[matIndex];
-    }
-
     void Start() {
         var chart = track.Chart;
         var tempoMap = track.Tempo;
@@ -104,8 +78,10 @@ public class NoteSpawner : MonoBehaviour {
                     // Spawn note
                     double spawnDspTime = NoteQueue[nextNoteIndex].SpawnTime + Track.StartTime;
                     double hitDspTime = NoteQueue[nextNoteIndex].HitTime + Track.StartTime;
-                    Material color = GetNoteColor(track.noteColors, NoteQueue[nextNoteIndex].NoteID);
-                    fn.Init(spawnPos, targetPos, spawnDspTime, hitDspTime, NoteQueue[nextNoteIndex].NoteDuration, color);
+                    fn.Init(spawnPos, targetPos, 
+                        spawnDspTime, hitDspTime, NoteQueue[nextNoteIndex].NoteDuration, 
+                        NoteQueue[nextNoteIndex].NoteID,
+                        track);
                 }
             } else {
                 Debug.LogWarning($"Can't find note: {NoteQueue[nextNoteIndex].NoteID}");
