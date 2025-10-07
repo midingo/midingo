@@ -19,13 +19,14 @@ public class Track : MonoBehaviour {
     public GameObject notePrefabAccidental;
     
     /// <summary>
-    /// Maps MIDI note number to a key's coordinates.
+    /// Maps MIDI note number to a key component
     /// </summary>
     /// 
     /// <remarks>
     ///  Doing so prevents unnecessary GetComponent() calls, improving performance. 
     /// </remarks>
-    public static Dictionary<int, Transform> KeyPositions = new Dictionary<int, Transform>();
+    public static Dictionary<int, GameObject> KeyComponents = new Dictionary<int, GameObject>();
+    
     public static double StartTime;
     public static double ElapsedTime;
     
@@ -47,7 +48,7 @@ public class Track : MonoBehaviour {
         foreach (Transform octave in keyboard) {
             foreach (Transform key in octave) {
                 if (int.TryParse(key.name, out int midiNote)) {
-                    KeyPositions[midiNote] = key.transform;
+                    KeyComponents[midiNote] = key.gameObject;
                 }
             }
         }

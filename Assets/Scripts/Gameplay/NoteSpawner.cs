@@ -49,7 +49,8 @@ public class NoteSpawner : MonoBehaviour {
         while (nextNoteIndex < NoteQueue.Count && NoteQueue[nextNoteIndex].SpawnTime <= Track.ElapsedTime) {
             int targetNote = NoteQueue[nextNoteIndex].NoteID;
 
-            if (Track.KeyPositions.TryGetValue(targetNote, out Transform keyTransform)) {
+            if (Track.KeyComponents.TryGetValue(targetNote, out GameObject keyObject)) {
+                Transform keyTransform = keyObject.transform;
                 GameObject noteObject;
                 Vector3 targetPos;
                 Vector3 spawnPos;
