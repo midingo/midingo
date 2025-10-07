@@ -1081,8 +1081,28 @@ PrefabInstance:
     m_RemovedGameObjects:
     - {fileID: 220477036079977948, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6954840858357051431, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4185310713782057904}
   m_SourcePrefab: {fileID: 100100000, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
+--- !u!1 &49149750330249543 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6954840858357051431, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
+  m_PrefabInstance: {fileID: 6929372526904959328}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &4185310713782057904
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 49149750330249543}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5536e058b06fe4307b5f35c03628f581, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::MIDIHandler
 --- !u!4 &5475285813618885994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3158726386248066058, guid: 616cb3cb889b844da8cef9de57da6576, type: 3}
