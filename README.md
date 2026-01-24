@@ -1,6 +1,8 @@
 # MIDINGO Game
 A falling note style rhythm game that happens to also be a piano trainer.
 
+![midingo demo](https://github.com/user-attachments/assets/1c449198-1152-4a98-9d0f-77ad9c03df71)
+
 ## Getting started
 MIDINGO is currently under development. There's not much here yet...
 
